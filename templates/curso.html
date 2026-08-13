@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}{{ curso.nome }}{% endblock %}
+
+{% block content %}
+<div class="course-header">
+    <h1>{{ curso.nome }}</h1>
+    <span class="badge">{{ curso.area }}</span>
+    <p>{{ curso.descricao }}</p>
+</div>
+
+<div class="materials-section">
+    <h2>Materiais e Atividades</h2>
+
+    {% for material in materiais %}
+        <div class="material-item">
+            <div class="material-info">
+                <h3>{{ material.titulo }}</h3>
+                <p>{{ material.conteudo }}</p>
+            </div>
+            <a href="#" class="btn-secondary">Baixar/Ver</a>
+        </div>
+    {% else %}
+        <p>Nenhum material disponível para este curso no momento.</p>
+    {% endfor %}
+</div>
+
+<div class="actions">
+    <a href="{{ url_for('dashboard') }}" class="btn-link">← Voltar para Meus Cursos</a>
+</div>
+{% endblock %}

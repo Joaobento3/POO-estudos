@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}Meus Cursos{% endblock %}
+
+{% block content %}
+<h1 class="page-title">Meus Cursos</h1>
+<p>Olá {{ nome }}, confira as disciplinas em que você está matriculado:</p>
+
+<div class="courses-grid">
+    {% for curso in cursos %}
+        <div class="course-card">
+            <h3>{{ curso.nome }}</h3>
+            <p class="course-area">{{ curso.area }}</p>
+            <p class="course-desc">{{ curso.descricao }}</p>
+            <a href="{{ url_for('curso_detalhes', curso_id=curso.id) }}" class="btn-card">Acessar Materiais</a>
+        </div>
+    {% else %}
+        <p>Você ainda não está matriculado em nenhum curso.</p>
+    {% endfor %}
+</div>
+{% endblock %}

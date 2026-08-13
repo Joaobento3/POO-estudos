@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% block title %}Painel do Professor{% endblock %}
+
+{% block content %}
+<h1 class="page-title">Painel Administrativo</h1>
+<p>Área exclusiva para professores e coordenadores.</p>
+
+<div class="admin-grid">
+    <!-- Seção: Criar Curso -->
+    <section class="admin-panel">
+        <h2>Criar Novo Curso</h2>
+        <form action="{{ url_for('admin') }}" method="POST">
+            <input type="hidden" name="action" value="criar_curso">
+            <div class="form-group">
+                <label>Nome do Curso:</label>
+                <input type="text" name="nome" required>
+            </div>
+            <div class="form-group">
+                <label>Descrição:</label>
+                <textarea name="descricao" required></textarea>
+            </div>
+            <div class="form-group">
+                <label>Área/Tecnologia:</label>
+                <input type="text" name="area" required>
+            </div>
+            <button type="submit" class="btn-primary">Cadastrar Curso</button>
+        </form>
+    </section>
+
+    <!-- Seção: Criar Material -->
+    <section class="admin-panel">
+        <h2>Adicionar Material</h2>
+        <form action="{{ url_for('admin') }}" method="POST">
+            <input type="hidden" name="action" value="criar_material">
+            <div class="form-group">
+                <label>Curso:</label>
+                <select name="curso_id" required>
+                    {% for curso in cursos %}
+                        <option value="{{ curso.id }}">{{ curso.nome }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Título do Material:</label>
+                <input type="text" name="titulo" required>
+            </div>
+            <div class="form-group">
+                <label>Conteúdo/Link:</label>
+                <textarea name="conteudo" required></textarea>
+            </div>
+            <button type="submit" class="btn-primary">Adicionar Material</button>
+        </form>
+    </section>
+
+    <!-- Seção: Matricular Aluno -->
+    <section class="admin-panel">
+        <h2>Matricular Aluno</h2>
+        <form action="{{ url_for('admin') }}" method="POST">
+            <input type="hidden" name="action" value="matricular">
+            <div class="form-group">
+                <label>Aluno:</label>
+                <select name="aluno_id" required>
+                    {% for aluno in alunos %}
+                        <option value="{{ aluno.id }}">{{ aluno.nome }} ({{ aluno.email }})</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Curso:</label>
+                <select name="curso_id" required>
+                    {% for curso in cursos %}
+                        <option value="{{ curso.id }}">{{ curso.nome }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button type="submit" class="btn-primary">Confirmar Matrícula</button>
+        </form>
+    </section>
+</div>
+{% endblock %}
